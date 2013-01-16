@@ -1,0 +1,6 @@
+14-15 jan 2013:
+* hours spent: 2
+* scope of work: 
+	- set up CI on local and web server
+	- login area
+	- form and credentials validation
