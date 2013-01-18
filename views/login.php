@@ -42,7 +42,11 @@
             <td><input type="submit" name="submit" value="LOGIN">
               &nbsp;
               <input type="reset" name="reset" value="RESET">
-              &nbsp;&nbsp;<a href="<?=base_url().'main/signup'?>">Sign Up!</a> | <a href="<?=base_url().'main/forgetpwd'?>">Forget Password?</a></td>
+             </td>
+           </tr>
+           <tr>
+           <td>
+              &nbsp;&nbsp;<a href="<? echo base_url().'main/fbrequest'; ?>">Login with Facebook</a> | <a href="<?=base_url().'main/signup'?>">Sign Up!</a> | <a href="<?=base_url().'main/forgetpwd'?>">Forget Password?</a></td>
           </tr>
           <tr>
           	<td>&nbsp;</td>

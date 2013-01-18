@@ -5,6 +5,7 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		$this->login();
+		//$this->Fbconnect();
 	}
 	
 	public function login()
@@ -13,7 +14,28 @@ class Main extends CI_Controller {
 	}
 	
 	public function signup(){
-		$this->load->view('signup');
+	
+			// captcha
+		$this->load->helper('captcha');
+		$vcap = array(
+			'word' => '',
+			'img_path' => './captcha/',
+			'img_url' => base_url().'captcha/',
+			'font_path' => './system/fonts/texb.ttf',
+			'img_width' => '150',
+			'img_height' => '30',
+			'expiration' => 7200
+    	);
+		$cap = create_captcha($vcap);
+		$data = array(
+			'captcha_time' => $cap['time'],
+			'ip_address' => $this->input->ip_address(),
+			'word' => $cap['word']
+		);
+		$this->session->set_userdata($data);
+		$data['cap_img'] = $cap['image'];
+
+		$this->load->view('signup',$data);
 	}
 	
 	public function members(){
@@ -59,7 +81,7 @@ class Main extends CI_Controller {
 			
 			// insert new password to database
 			$this->mod_admin->newPass($useremail,$pwd);
-			redirect('main/login');
+			$this->login();
 			
 			
 		} else {
@@ -85,9 +107,9 @@ class Main extends CI_Controller {
 		if($this->form_validation->run()){
 				// if login succeeded then set session and go to members page
 				$this->mod_admin->setsession($email);
-				redirect('main/members');
+				$this->members();
 		} else {
-			redirect('main/login');
+			$this->login();
 		}
 		
 	}
@@ -95,13 +117,16 @@ class Main extends CI_Controller {
 	public function signup_validation()
 	{
 		$this->load->library('form_validation');
+		$this->load->helper('captcha');
+		
 		// Form validation
 		$this->form_validation->set_rules('email','Email','required|valid_email|trim|xss_clean|is_unique[tbl_users.email]');
 		$this->form_validation->set_rules('firstname','First Name','required|min_length[2]|max_length[100]');
 		$this->form_validation->set_rules('lastname','Last Name','required|min_length[2]|max_length[100]');
 		$this->form_validation->set_rules('password','Password','required|min_length[5]|matches[repassword]|md5');
 		$this->form_validation->set_rules('repassword','Retype Password','required|min_length[5]|md5');
-		$this->form_validation->set_message('is_unique',"That email addtess is already exist");
+		$this->form_validation->set_message('is_unique',"That email address is already exist");
+		$this->form_validation->set_rules('captcha','Security Code','trim|required|callback_check_captcha');
 		
 		
 		if($this->form_validation->run()){
@@ -132,11 +157,11 @@ class Main extends CI_Controller {
 			// 2.) add account to temp_user
 					if($this->mod_admin->add_temp_user($email,$password,$firstname,$lastname,$key)){
 						 $this->email->send();
-						redirect('main/confirmpage');
+						 $this->confirmpage();
 					}	
 					
 		
-		} else { redirect('main/signup'); }
+		} else { $this->signup(); }
 	}
 	
 	public function reguser($key){
@@ -145,7 +170,7 @@ class Main extends CI_Controller {
 			//if the key is valid then add user to database
 			if($this->mod_admin->inputmember($key)){
 				$this->mod_admin->setsession($email);
-				redirect('main/members');
+				$this->members();
 			}
 		} else echo "Sorry, this key is invalid. Pls try to sign up again.";
 	}
@@ -171,10 +196,41 @@ class Main extends CI_Controller {
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		redirect('main/login');
+		$this->login();
 	}
 	
+	public function check_captcha()
+	{
+		$expiration = time()-7200; // two hour limit
+		$cap = $this->input->post('captcha');
+		if($this->session->userdata('word')==$cap AND $this->session->userdata('ip_address')==$this->input->ip_address() AND $this->session->userdata('captcha_time')>$expiration){ return true; }
+		else {
+			$this->form_validation->set_message('check_captcha','Security number does not match.');
+			return false;
+		}
+	}
 	
+	/*public function Fbconnect(){
+		$this->load->library('Fbconnect');
+		$this->load->view('loginfb');
+		
+	}*/
+	
+	public function fbrequest(){
+		$this->load->library('Fbconnect');
+		
+		$data = array(
+			'redirect_url' => site_url('main/set_fblogin'),
+			'scope' => 'email'
+		);
+		
+		
+		redirect($this->fbconnect->getLoginUrl($data));
+	}
+	
+	public function set_fblogin(){
+	
+	}
 }
 
 /* End of file welcome.php */

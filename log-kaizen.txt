@@ -14,5 +14,16 @@
 	- signup validation + session
 	- password recovery
 
+18 jan 2013:
+hours spent: 1
+*scope of work:
+	- captcha
+
+19 jan 2013:
+hours spent: 2
+*scope of work:
+	- login with facebook (not done yet)
+	
+
 
 
