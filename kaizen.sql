@@ -1,69 +1,37 @@
-# HeidiSQL Dump 
-#
-# --------------------------------------------------------
-# Host:                 127.0.0.1
-# Database:             kaizen
-# Server version:       5.5.8
-# Server OS:            Win32
-# Target-Compatibility: MySQL 5.0
-# max_allowed_packet:   1048576
-# HeidiSQL version:     3.2 Revision: 1129
-# --------------------------------------------------------
 
-/*!40100 SET CHARACTER SET latin1*/;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0*/;
+-- phpMyAdmin SQL Dump
+-- version 2.11.4
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jan 18, 2013 at 01:54 AM
+-- Server version: 5.1.57
+-- PHP Version: 5.2.17
 
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-#
-# Database structure for database 'kaizen'
-#
+--
+-- Database: `a8286781_kaizen`
+--
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `kaizen` /*!40100 DEFAULT CHARACTER SET latin1 */;
+-- --------------------------------------------------------
 
-USE `kaizen`;
+--
+-- Table structure for table `tbl_users`
+--
 
+CREATE TABLE `tbl_users` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `firstname` varchar(100) DEFAULT NULL,
+  `lastname` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
-#
-# Table structure for table 'tbl_users'
-#
+--
+-- Dumping data for table `tbl_users`
+--
 
-CREATE TABLE tbl_users (
-  id int(10) NOT NULL AUTO_INCREMENT,
-  email varchar(100) NOT NULL,
-  password varchar(100) NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB AUTO_INCREMENT=2 /*!40100 DEFAULT CHARSET=latin1*/;
-
-
-
-#
-# Dumping data for table 'tbl_users'
-#
-
-LOCK TABLES `tbl_users` WRITE;
-/*!40000 ALTER TABLE `tbl_users` DISABLE KEYS*/;
-REPLACE INTO tbl_users (`id`, `email`, `password`) VALUES
-	(1,'tdaryatmo@gmail.com','0a834d514e44387811619f0b0b0d15e5');
-/*!40000 ALTER TABLE `tbl_users` ENABLE KEYS*/;
-UNLOCK TABLES;
-
-
-#
-# Table structure for table 'tbl_users_temp'
-#
-
-CREATE TABLE tbl_users_temp (
-  id int(11) NOT NULL,
-  email varchar(100) NOT NULL,
-  temp_key varchar(100) NOT NULL
-) ENGINE=InnoDB /*!40100 DEFAULT CHARSET=latin1*/;
-
-
-
-#
-# Dumping data for table 'tbl_users_temp'
-#
-
-# (No data found.)
-
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS*/;
+INSERT INTO `tbl_users` VALUES(1, 'tdaryatmo@gmail.com', '63b1da45c879fcf6a7ffa85b9d712878', 'tia', 'daryatmo');
+INSERT INTO `tbl_users` VALUES(4, 'tia_daryatmo@yahoo.com', 'c8d36877a2bb75b9f82940f1e78df309', 'rum', 'dar');

@@ -4,3 +4,15 @@
 	- set up CI on local and web server
 	- login area
 	- form and credentials validation
+
+17 jan 2013:
+* hours spent: 3
+*scope of work:
+	- registration form: user signup -> wait for confirmation email -> confirm account by 
+		clicking a link on email -> account confirmed
+	- email to user
+	- signup validation + session
+	- password recovery
+
+
+

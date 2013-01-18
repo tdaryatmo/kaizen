@@ -11,8 +11,10 @@
  
 <h1>Profile</h1>
 	<p>
-    Welcome!<br />
-    <pre><? print_r ($this->session->all_userdata()); ?></pre>
+    Welcome, <b><?=$this->session->userdata('firstname');?></b>!<br />
+   <!-- <pre>
+	<? print_r ($this->session->all_userdata()); ?>
+    </pre> -->
     This where the magic happens :)
     </p>
 	

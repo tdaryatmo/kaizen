@@ -29,20 +29,20 @@
           <tr>
             <td ><strong>Email</strong></td>
           </tr>
-          <tr><? echo validation_errors(); ?>
+          <tr><? // echo validation_errors(); ?><?php echo form_error('username'); ?>
             <td><input type="text" name="username" size="50"></td>
           </tr>
           <tr>
             <td ><strong>Password</strong></td>
           </tr>
-          <tr>
+          <tr><?php echo form_error('password'); ?>
             <td><input type="password" name="password" size="50"></td>
           </tr>
           <tr>
             <td><input type="submit" name="submit" value="LOGIN">
               &nbsp;
               <input type="reset" name="reset" value="RESET">
-              &nbsp;&nbsp;Sign Up! | Forget Password?</td>
+              &nbsp;&nbsp;<a href="<?=base_url().'main/signup'?>">Sign Up!</a> | <a href="<?=base_url().'main/forgetpwd'?>">Forget Password?</a></td>
           </tr>
           <tr>
           	<td>&nbsp;</td>

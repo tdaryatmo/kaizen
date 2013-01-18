@@ -15,7 +15,8 @@ class Model_users extends CI_Controller {
 		} else {
 			return false;
 		}
-		
 	}
+	
+	
 }
 ?>
