@@ -14,7 +14,9 @@ class Mod_admin extends CI_Model {
 					'email' => $row->email,
 					'password' => $row->password,
 					'firstname' => $row->firstname,
-					'lastname' => $row->lastname
+					'lastname' => $row->lastname,
+					'emailtype' => $row->$emailtype,
+					'gender' => $row->$gender
 			);
 			$insertquery = $this->db->insert('tbl_users',$data);
 		}
@@ -31,13 +33,15 @@ class Mod_admin extends CI_Model {
 		
 	}
 
-	public function add_temp_user($email,$password,$firstname,$lastname,$key){
+	public function add_temp_user($email,$password,$firstname,$lastname,$key,$emailtype,$gender){
 		$data = array(
 			'email' => $email,
 			'password' => md5($password),
 			'firstname' => $firstname,
 			'lastname' => $lastname,
-			'key' => $key
+			'key' => $key,
+			'emailtype' => $emailtype,
+			'gender' => $gender
 		);
 		$insertquery = $this->db->insert('tbl_users_temp',$data);
 	}
@@ -61,7 +65,9 @@ class Mod_admin extends CI_Model {
 					'email' => $row->email,
 					'password' => $row->password,
 					'firstname' => $row->firstname,
-					'lastname' => $row->lastname
+					'lastname' => $row->lastname,
+					'emailtype' => $emailtype,
+					'gender' => $gender
 				);
 		$sesuser = $this->session->set_userdata($data);		
 	}
@@ -88,7 +94,9 @@ class Mod_admin extends CI_Model {
 			'email' => $row->email,
 			'password' => $row->password,
 			'firstname' => $row->firstname,
-			'lastname' => $row->lastname
+			'lastname' => $row->lastname,
+			'emailtype' => $emailtype,
+			'gender' => $gender
 		);
 
 		return $allData;

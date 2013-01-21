@@ -39,6 +39,8 @@ class Main extends CI_Controller {
 	}
 	
 	public function members(){
+	
+		//$this->load->library('fbconnect');
 		$this->load->view('members');
 	}	
 	
@@ -121,8 +123,10 @@ class Main extends CI_Controller {
 		
 		// Form validation
 		$this->form_validation->set_rules('email','Email','required|valid_email|trim|xss_clean|is_unique[tbl_users.email]');
+		$this->form_validation->set_rules('emailtype','Type of Email','required');
 		$this->form_validation->set_rules('firstname','First Name','required|min_length[2]|max_length[100]');
 		$this->form_validation->set_rules('lastname','Last Name','required|min_length[2]|max_length[100]');
+		$this->form_validation->set_rules('gender','Gender','required');
 		$this->form_validation->set_rules('password','Password','required|min_length[5]|matches[repassword]|md5');
 		$this->form_validation->set_rules('repassword','Retype Password','required|min_length[5]|md5');
 		$this->form_validation->set_message('is_unique',"That email address is already exist");
@@ -139,6 +143,8 @@ class Main extends CI_Controller {
 			$password = $_POST['password'];
 			$firstname = $_POST['firstname'];
 			$lastname = $_POST['lastname'];
+			$emailtype = $_POST['emailtype'];
+			$gender = $_POST['gender'];
 			
 			//$this->mod_admin->inputmember($email,$password,$firstname,$lastname);			
 			// 1.) generate a random key
@@ -155,7 +161,7 @@ class Main extends CI_Controller {
 					//$this->email->send();
 			
 			// 2.) add account to temp_user
-					if($this->mod_admin->add_temp_user($email,$password,$firstname,$lastname,$key)){
+					if($this->mod_admin->add_temp_user($email,$password,$firstname,$lastname,$key,$emailtype,$gender)){
 						 $this->email->send();
 						 $this->confirmpage();
 					}	
@@ -220,8 +226,9 @@ class Main extends CI_Controller {
 		$this->load->library('Fbconnect');
 		
 		$data = array(
-			'redirect_url' => site_url('main/set_fblogin'),
-			'scope' => 'email'
+			//'scope' => 'read_stream,user_about_me,email,read_friendlists,user_birthday,user_education_history,user_work_history',
+			'scope' => 'email',
+			'redirect_uri' => site_url('main/set_fblogin')
 		);
 		
 		
@@ -229,6 +236,34 @@ class Main extends CI_Controller {
 	}
 	
 	public function set_fblogin(){
+		//echo "yay I'm in!";
+		
+		$this->load->library('fbconnect');
+		$this->load->model('users');
+		$fb_user = $this->fbconnect->user;
+		if($this->fbconnect->user){ // if data exist
+		//	echo "<pre>";
+		//	print_r($this->fbconnect->user);
+		//	echo "</pre>";
+		//}
+		
+		// if user is a fb user
+		if($this->fbconnect->user){
+			if($this->users->is_member($fb_user)){
+				$this->users->log_in($fb_user);
+				$this->members();
+			} else {
+			// if not signup from facebook and login	
+				$this->users->sign_up_fb($fb_user);
+				$this->users->log_in($fb_user);
+				$this->members();
+			}
+		} else {
+			//echo "could not login!";
+			echo "<pre>";
+			print_r($this->fbconnect->user);
+			echo "</pre>";
+		}
 	
 	}
 }

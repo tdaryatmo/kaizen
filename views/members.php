@@ -13,7 +13,7 @@
 	<p>
     Welcome, <b><?=$this->session->userdata('firstname');?></b>!<br />
    <!-- <pre>
-	<? print_r ($this->session->all_userdata()); ?>
+	<? //print_r ($this->session->all_userdata()); ?>
     </pre> -->
     This where the magic happens :)
     </p>

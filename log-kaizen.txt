@@ -23,6 +23,13 @@ hours spent: 1
 hours spent: 2
 *scope of work:
 	- login with facebook (not done yet)
+
+20 jan 2013:
+hours spent: 4
+*scope of work:
+	- login with facebook
+	- retrieve data from facebook
+
 	
 
 

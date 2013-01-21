@@ -35,40 +35,53 @@
           <tr >
             <td colspan="2" class="header_table"><span class="style1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign Up Page!</span></td>
           </tr>
-          <tr><?php //echo validation_errors(); ?>
-            <td width="50"><strong>First Name</strong></td>
+          <tr><?php echo validation_errors(); ?>
+            <td width="50"><strong>First Name *</strong></td>
           </tr>
-          <tr><?php echo form_error('firstname'); ?>
+          <tr><?php //echo form_error('firstname'); ?>
             <td><input type="text" name="firstname" size="50"></td>
           </tr>
           <tr>
-            <td width="50"><strong>Last Name</strong></td>
+            <td width="50"><strong>Last Name *</strong></td>
           </tr>
-          <tr><?php  echo form_error('lastname'); ?>
+          <tr><?php  //echo form_error('lastname'); ?>
             <td><input type="text" name="lastname" size="50"></td>
           </tr>
           <tr>
-            <td width="50"><strong>Email</strong></td>
+            <td width="50"><strong>Email *</strong></td>
           </tr>
-          <tr><?php echo form_error('email'); ?>
+          <tr><?php //echo form_error('email'); ?>
             <td><input type="text" name="email" size="50"></td>
+          </tr>
+          <tr>
+          	<td width="50"><strong>Type of Email * &nbsp;&nbsp;<select name="emailtype">
+            	<option value="Home">Home</option>
+                <option value="Work">Work</option>
+                <option value="Other">Other</option>
+            </select></strong></td>
+          </tr>
+          <tr>
+          	<td><strong>Gender *</strong>&nbsp;&nbsp;<select name="gender">
+            	<option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select></td>
           </tr>
           <tr>
             <td width="50"><strong>Password</strong></td>
           </tr>
-          <tr><?php echo form_error('password'); ?>
+          <tr><?php //echo form_error('password'); ?>
             <td><input type="password" name="password" size="50"></td>
           </tr>
           <tr>
             <td width="50"><strong>Re-type Password</strong></td>
           </tr>
-          <tr><?php  echo form_error('repassword'); ?>
+          <tr><?php  //echo form_error('repassword'); ?>
             <td><input type="password" name="repassword" size="50"></td>
           </tr>
 		 <tr>
-         	<td>&nbsp;</td>
             <td>
-			<? //include('captcha.php'); ?>
+			<? echo $cap_img; ?>
+            <input type="text" id="captcha" name="captcha" value="" />
             </td>
          </tr>
           <tr>
