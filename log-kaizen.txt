@@ -30,7 +30,11 @@ hours spent: 4
 	- login with facebook
 	- retrieve data from facebook
 
-	
+25-27 jan 2013:
+hours spent: 12
+*scope of work:
+	- debugging
+	- search with jquery	
 
 
 
